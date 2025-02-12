@@ -1,6 +1,7 @@
 FROM jupyter/minimal-notebook:notebook-6.4.12
 # Inspect the Dockerfile at:
 # https://github.com/jupyter/docker-stacks/tree/HEAD/minimal-notebook/Dockerfile
+# C kernel Jupyter from: https://github.com/brendan-rius/jupyter-c-kernel
 
 # install additional packages
 USER root
@@ -15,6 +16,16 @@ RUN pip install nodejs
 RUN pip install torchtext lightning tensorboard
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 RUN jupyter labextension install jupyter-matplotlib
+
+# add C kernel to jupyter
+WORKDIR /tmp
+
+COPY ./ jupyter_c_kernel/
+
+RUN pip install --no-cache-dir jupyter_c_kernel/
+RUN cd jupyter_c_kernel && install_c_kernel --user
+
+WORKDIR /home/$NB_USER/
 
 EXPOSE 8888
 

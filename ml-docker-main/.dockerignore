@@ -1,6 +1,3 @@
-data/
-shared/
-mysql_shared/
 __pycache__
 *.pyc
 build/
@@ -9,4 +6,5 @@ MANIFEST
 .idea/
 .ipynb_checkpoints/
 *.egg-info/
-venv/
+.git
+.gitignore
