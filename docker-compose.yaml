@@ -1,43 +1,22 @@
 name: pi1_docker_main
 
 services: 
-
-  #pi2
-  pi2_command_line: 
-    container_name: pi2_command_line
+  pi1_notebook:
+    container_name: pi1_notebook
     platform: linux/amd64
-    build: ./pi2-docker-main/pi2_command_line
-    volumes:
-      - ./shared:/usr/src/pi2/shared
-
-  pi2_notebook: 
-    container_name: pi2_c_notebook
-    platform: linux/amd64
-    build: ./pi2-docker-main/pi2_c_notebook
-    ports:
-      - "8889:8888"
-      - "6007:6006"
-    volumes:
-      - ./shared:/home/jovyan
-    environment:
-      - PASSWORD=pi2
-      - JUPYTER_TOKEN=pi2
-      - JUPYTER_RUNTIME_DIR=/tmp/jupyter_runtime/ 
-  
-  #ML and DL    
-  ml_notebook:
-    container_name: ml_notebook
-    platform: linux/amd64
-    build: ./ml-docker-main
+    build: ./pi1_notebook
     ports:
       - "8888:8888"
-      - "6006:6006"
+      - "4040-4049:4040-4049"
     volumes:
-      - ./shared:/home/jovyan
+      - ./shared:/home/jovyan/shared
+      - ./examples:/usr/src/pi2/examples
     environment:
-      - PASSWORD=ml
-      - JUPYTER_TOKEN=ml
+      - PASSWORD=pi1
+      - JUPYTER_TOKEN=pi1
+      - JUPYTER_ALLOW_INSECURE_WRITES=true
       - JUPYTER_RUNTIME_DIR=/tmp/jupyter_runtime/
+      - RJK_CLASSPATH=/usr/local/spark/jars/*
       
   #LSDM
   # namenode:
@@ -94,55 +73,40 @@ services:
   #   env_file:
   #     - ./hadoop.env
 
-  mysqldb:
-    image: mysql
-    restart: always
-    container_name: mysqldb
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test_db
-    ports:
-      - "3308:3306"
-    volumes:
-      - ./mysql_shared:/mysql_shared
+  # mysqldb:
+  #   image: mysql
+  #   restart: always
+  #   container_name: mysqldb
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: test_db
+  #   ports:
+  #     - "3308:3306"
+  #   volumes:
+  #     - ./mysql_shared:/mysql_shared
 
-  phpmyadmin:
-    #image: phpmyadmin/phpmyadmin:latest
-    image: phpmyadmin:latest
-    container_name: phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: mysqldb
-      PMA_USER: root
-      PMA_PASSWORD: root
-    ports:
-      - "8081:80"
+  # phpmyadmin:
+  #   #image: phpmyadmin/phpmyadmin:latest
+  #   image: phpmyadmin:latest
+  #   container_name: phpmyadmin
+  #   restart: always
+  #   environment:
+  #     PMA_HOST: mysqldb
+  #     PMA_USER: root
+  #     PMA_PASSWORD: root
+  #   ports:
+  #     - "8081:80"
  
-  mongodb:
-    image: 'mongo'
-    container_name: mongodb
-    restart: always
-    environment:
-      - MONGO_INITDB_DATABASE=test_db
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
-    ports:
-      - '27017-27019:27017-27019'
-
-  pysparkjupyter:
-    build: ./lsdm-docker-main/spark-notebook
-    container_name: pysparkjupyter
-    ports:
-      - "8887:8888"
-      - "4040-4049:4040-4049"
-    volumes:
-      - ./shared:/home/jovyan/shared
-    environment:
-      - PASSWORD=lsdm
-      - JUPYTER_TOKEN=lsdm
-      - JUPYTER_ALLOW_INSECURE_WRITES=true
-      - RJK_CLASSPATH=/usr/local/spark/jars/*
-
+  # mongodb:
+  #   image: 'mongo'
+  #   container_name: mongodb
+  #   restart: always
+  #   environment:
+  #     - MONGO_INITDB_DATABASE=test_db
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=root
+  #   ports:
+  #     - '27017-27019:27017-27019'
 
 # volumes:
 #   lsdm-docker-main/hadoop_namenode:
