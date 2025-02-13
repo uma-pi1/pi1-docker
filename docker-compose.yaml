@@ -10,7 +10,6 @@ services:
       - "4040-4049:4040-4049"
     volumes:
       - ./shared:/home/jovyan/shared
-      - ./examples:/usr/src/pi2/examples
     environment:
       - PASSWORD=pi1
       - JUPYTER_TOKEN=pi1

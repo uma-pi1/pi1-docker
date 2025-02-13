@@ -67,15 +67,10 @@ COPY ./ jupyter_c_kernel/
 RUN pip install --no-cache-dir jupyter_c_kernel/
 RUN cd jupyter_c_kernel && install_c_kernel --user
 
-# add examples to shared folder
-WORKDIR /usr/src/pi2
-COPY ./pi2_examples /usr/src/pi2/examples
-
 # Fix any problematic folder permissions and start Jupyterlab in home directory
-USER root
 RUN sudo chown -R jovyan /home/jovyan
 USER jovyan
-WORKDIR /home/jovyan
+WORKDIR /home/jovyan/shared
 EXPOSE 8888
 
 
