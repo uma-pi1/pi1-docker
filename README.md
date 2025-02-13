@@ -100,7 +100,7 @@ docker compose up -d
 
 This will run only a specific container (pysparkjupyter in this case):
 ```
-docker compose up -d pysparkjupyter
+docker compose up -d pi1_notebook
 ```
 
 **Note for Windows users: it might be that you do not have write access in the `shared/` folder.**
@@ -123,7 +123,7 @@ docker compose up -d pi1-docker
 Notice that the docker is running in the terminal you started it from, as long as the process it is running hasn't finished working yet. In case of the Jupyter notebook server, the answer to when it will *finish* executing is: never, unless you shut it down. To attach to a container, you thus have to open a second terminal to not interrupt the processes running in the first. 
 
 ### Run Code in Your Container
-To run code with/in a specific container, e.g. python from within the `pi1_container` application, use `docker exec`.
+To run code with/in a specific container, e.g. python from within the `pi1_notebook` application, use `docker exec`.
 You can do this either without attaching to a running container, or interactively within that container's shell. 
 
 #### Non-Interactively
@@ -139,7 +139,7 @@ You can do this either without attaching to a running container, or interactivel
 
     For example, to run a Python script inside the `pi1_container`:
     ```sh
-    docker exec -it pi1_docker python3 /usr/src/app/myprogram.py
+    docker exec -it pi1_notebook python3 /usr/src/app/myprogram.py
     ```
 
 #### Interactively
