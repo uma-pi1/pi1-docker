@@ -2,8 +2,8 @@ name: pi1_docker
 
 services:
   pi1_main:
-    container_name: pi1_main
-    build: ./pi1_main
+    container_name: pi1-main
+    build: ./pi1-main
     ports:
       - "8889:8888"
       - "4040-4049:4040-4049"

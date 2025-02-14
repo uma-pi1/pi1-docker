@@ -1,7 +1,7 @@
 # pi1-docker: The Environment For All Lectures at PI1
 
 In the following, we briefly introduce you to Docker. For specifics to
-[PI2](#4-pi2) , [ML/DL](#5-ml), and [LSDM](#6-lsdm), click on the respective
+[PI2](#4-pi2) , [ML/DL](#5-mldl), and [LSDM](#6-lsdm), click on the respective
 link.
 
 ## Table of contents
@@ -119,7 +119,7 @@ docker compose up -d
 
 You usually want to use the pi1\_main container only. Start this using
 ```
-docker compose up -d pi1_main
+docker compose up -d pi1-main
 ```
 
 **Note for Windows users: it might be that you do not have write access in the
@@ -149,12 +149,12 @@ Use the Docker Desktop GUI or run the following command in the root folder of
 the repository to start the main container:
 
 ```
-docker compose up -d pi1_main
+docker compose up -d pi1-main
 ```
 
 The container will run until you stop it using the GUI or
 ```
-docker compose down pi1_main
+docker compose down
 ```
 
 <!-- Notice that Docker is running in the terminal you started it from, as long -->
@@ -196,9 +196,9 @@ non-interactively or interactively from the shell.
     sh docker exec -it <container_name> <command>
     ```
 
-    For example, to run a Python script inside `pi1_main`:
+    For example, to run a Python script inside `pi1-main`:
     ```sh
-    docker exec -it pi1_main python3 shared/myprogram.py
+    docker exec -it pi1-main python3 shared/myprogram.py
     ```
 
 #### Interactively
@@ -225,7 +225,7 @@ bash.
 
 ### Misc
 
-The default user name in JupyterLab and the pi1_main notebook is `jovyan`. For
+The default user name in JupyterLab and the pi1-main notebook is `jovyan`. For
 more information see
 [here](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/faq.html#who-is-jovyan).
 
