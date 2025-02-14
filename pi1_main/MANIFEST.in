@@ -1,2 +1,0 @@
-include jupyter_c_kernel/resources/master.c
-include README.md LICENSE.txt

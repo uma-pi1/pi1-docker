@@ -162,7 +162,7 @@ Attach to the container's interactive shell using the `docker exec` command with
 
 ### Using a Jupyter Notebook
 
-Open a browser and enter [http://localhost:8887/8/9](http://localhost:8888), depending on whether you are opening the pySpark notebook (LSDM, 8887), the ML/DL notebook (8888), or the PI2 C notebook (8889).
+Open a browser and enter [http://localhost:8889](http://localhost:8889) to open JupyterLab. 
 
 
 ### Transfer Between Host and Notebook
