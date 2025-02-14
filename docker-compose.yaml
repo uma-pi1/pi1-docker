@@ -1,10 +1,10 @@
-name: pi1_docker_main
+name: pi1_docker
 
 services: 
-  pi1_notebook:
-    container_name: pi1_notebook
+  pi1_main:
+    container_name: pi1_main
     platform: linux/amd64
-    build: ./pi1_notebook
+    build: ./pi1_main
     ports:
       - "8888:8888"
       - "4040-4049:4040-4049"
@@ -114,4 +114,5 @@ services:
 
       
       
+
 

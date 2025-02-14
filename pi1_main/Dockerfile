@@ -9,7 +9,12 @@ FROM quay.io/jupyter/pyspark-notebook@sha256:999213c55c952aa484128cd029774670332
 # Install system-wide packages
 USER root
 RUN apt-get update -qq 
-RUN apt-get -y install -qq vim netcat-traditional
+
+# PI2
+RUN apt-get -y install -qq vim netcat-traditional nasm clang openjdk-17-jdk
+
+# ML/DL
+RUN sudo apt -y install pkg-config libcairo2-dev gcc libgirepository1.0-dev git
 
 # Install user packages
 USER jovyan
@@ -44,12 +49,6 @@ RUN mkdir /home/jovyan/shared
 # Fix any problematic folder permissions and start Jupyterlab in home directory
 USER root
 RUN chown -R jovyan /home/jovyan
-
-#ml, dl
-RUN sudo apt -y install pkg-config libcairo2-dev gcc libgirepository1.0-dev git
-
-#packages for Pi2
-RUN sudo apt -y install nasm clang openjdk-17-jdk
 
 # Add permanent mamba/pip/conda installs, data files, other user libs here
 # for ml and dl
