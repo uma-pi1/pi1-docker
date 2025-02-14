@@ -6,14 +6,14 @@ link.
 
 ## Table of contents
 
-1. [Install Docker](#1-install-docker)
-2. [Setup pi1-docker](#2-how-to-setup)
-3. [Using pi1-docker](#3-how-to-use)
+1. [Installation](#1-installation)
+2. [Setup](#2-setup)
+3. [Usage](#3-usage)
 4. [PI2](#4-pi2)
-5. [ML/DL](#5-ml)
-6. [LSDM](#6-lsdm)
+5. [ML/DL](#5-mldl)
+<!-- 6. [LSDM](#6-lsdm) -->
 
-## 1. Install Docker
+## 1. Installation
 
 Before starting the local development environment, you need to install Docker.
 If you have no prior experience with Docker, please refer to the introductory
@@ -85,7 +85,7 @@ the convenience script instead.
 sudo snap install docker
 ```
 
-## 2. Setup pi1-docker
+## 2. Setup
 
 ### Clone This Repository
 Clone this repository and go into the root directory of the repository by typing
@@ -143,7 +143,7 @@ docker compose up --build -dd
 in the pi1-docker folder.
 
 
-## 3. Using pi1-docker
+## 3. Usage
 
 Use the Docker Desktop GUI or run the following command in the root folder of
 the repository to start the main container:
