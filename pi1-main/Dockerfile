@@ -56,6 +56,7 @@ RUN pip install --no-cache-dir pkgconfig psutil black cairocffi graphviz importm
 RUN pip3 install --no-cache-dir torch torchvision torchaudio torchviz --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir torchtext lightning tensorboard
 RUN pip install --no-cache-dir nodejs
+RUN pip install --no-cache-dir jupytext
 
 # Setup shared directory
 RUN mkdir /home/jovyan/shared
