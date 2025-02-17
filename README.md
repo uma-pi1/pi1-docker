@@ -177,6 +177,16 @@ different languages.
 
 **If you see a prompt asking you for a token or password type `pi1`.**
 
+#### JupyText
+
+In our lectures, we are making use of
+[Jupytext](https://jupytext.readthedocs.io/en/latest/index.html), a tool to
+synchronize plain Python files with Jupyter notebooks. In this Docker container,
+Jupytext is already installed. This means that you are able to open and edit
+plain Python files as a notebook. You will notice that upon saving your edits, a
+notebook file (with `ipynb` file extension) will be created. Changes in either
+file (`py` or `ipynb`) will be synchronized to the other one.
+
 ### Run Programs in A Container
 
 You can run programs using the terminal in JupyterLab. But you can also do it
