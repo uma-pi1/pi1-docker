@@ -187,6 +187,8 @@ plain Python files as a notebook. You will notice that upon saving your edits, a
 notebook file (with `ipynb` file extension) will be created. Changes in either
 file (`py` or `ipynb`) will be synchronized to the other one.
 
+**Note:** If Python files are _not_ opened as a notebook directly, right-click the file, click "Open With", then select "Notebook".
+
 ### Run Programs in A Container
 
 You can run programs using the terminal in JupyterLab. But you can also do it
