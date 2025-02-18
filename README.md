@@ -138,7 +138,7 @@ Then run `docker compose up --build`.
 If the pi1-docker repository was updated during the term, run
 ```
 git pull
-docker compose up --build -dd
+docker compose up --build -d
 ```
 in the pi1-docker folder.
 
