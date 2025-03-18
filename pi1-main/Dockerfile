@@ -16,7 +16,8 @@ RUN apt-get -y install clang nasm
 # LSDM
 RUN apt-get -y install netcat-traditional
 # ML/DL
-RUN sudo apt -y install libcairo2-dev pkg-config libgirepository1.0-dev
+RUN apt -y install libcairo2-dev pkg-config libgirepository1.0-dev 
+RUN apt -y install libgirepository-2.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-4.0
 
 # Install Jupyter kernels
 USER jovyan
@@ -52,7 +53,9 @@ RUN pip install --no-cache-dir ipympl
 RUN pip install --no-cache-dir 'apache-beam[gcp]' mysql-connector-python pyarrow pandas pymongo
 
 # ML/DL
-RUN pip install --no-cache-dir pkgconfig psutil black cairocffi graphviz importmagic matplotlib numpy pandas PyGObject pyparsing python-crfsuite python-mnist mnist1d pystan scikit-learn scikit-optimize scipy sortedcontainers tabulate nbgitpuller
+RUN pip3 install pycairo
+RUN pip3 install PyGObject
+RUN pip install --no-cache-dir pkgconfig psutil black cairocffi graphviz importmagic matplotlib numpy pandas pyparsing python-crfsuite python-mnist mnist1d pystan scikit-learn scikit-optimize scipy sortedcontainers tabulate nbgitpuller
 RUN pip3 install --no-cache-dir torch torchvision torchaudio torchviz --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip install --no-cache-dir torchtext lightning tensorboard
 RUN pip install --no-cache-dir nodejs
