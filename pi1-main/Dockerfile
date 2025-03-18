@@ -19,6 +19,9 @@ RUN apt-get -y install netcat-traditional
 RUN apt -y install libcairo2-dev pkg-config libgirepository1.0-dev 
 RUN apt -y install libgirepository-2.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-4.0
 
+#make sure folder permissions work under mac
+RUN chown -R jovyan /home/jovyan
+
 # Install Jupyter kernels
 USER jovyan
 WORKDIR /home/jovyan
