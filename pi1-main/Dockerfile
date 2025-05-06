@@ -25,7 +25,10 @@ RUN chown -R jovyan /home/jovyan
 # Install Jupyter kernels
 USER jovyan
 WORKDIR /home/jovyan
-RUN fix-permissions "${CONDA_DIR}" && fix-permissions "/home/jovyan"
+RUN mkdir /home/jovyan/local
+RUN fix-permissions "${CONDA_DIR}" \
+	&& fix-permissions "/home/jovyan" \
+	&& fix-permissions "/home/jovyan/local"
 
 # Install Scala kernel
 RUN pip install --no-cache-dir spylon-kernel
@@ -45,24 +48,16 @@ RUN sed -i 's/"RJK_CLASSPATH": *""/"RJK_CLASSPATH": "\/usr\/local\/spark\/jars\/
 RUN pip install --no-cache-dir jupyter-c-kernel
 RUN install_c_kernel --user
 
-# Install lab extensions
-# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
-RUN pip install --no-cache-dir ipywidgets
-# RUN jupyter labextension install jupyter-matplotlib
-RUN pip install --no-cache-dir ipympl
 
 # Install Python packages
-# LSDM
-RUN pip install --no-cache-dir 'apache-beam[gcp]' mysql-connector-python pyarrow pandas pymongo
-
-# ML/DL
-RUN pip3 install pycairo
-RUN pip3 install PyGObject
-RUN pip install --no-cache-dir pkgconfig psutil black cairocffi graphviz importmagic matplotlib numpy pandas pyparsing python-crfsuite python-mnist mnist1d pystan scikit-learn scikit-optimize scipy sortedcontainers tabulate nbgitpuller
-RUN pip3 install --no-cache-dir torch torchvision torchaudio torchviz --extra-index-url https://download.pytorch.org/whl/cpu
-RUN pip install --no-cache-dir torchtext lightning tensorboard
-RUN pip install --no-cache-dir nodejs
-RUN pip install --no-cache-dir jupytext
+RUN pip3 install --no-cache-dir ipywidgets ipympl 'apache-beam[gcp]' \
+	mysql-connector-python pyarrow pandas pymongo jupytext nodejs \
+	PyGObject pycairo pkgconfig psutil black cairocffi graphviz \
+	importmagic matplotlib numpy pandas \
+	pyparsing python-crfsuite python-mnist mnist1d pystan scikit-learn \
+	scikit-optimize scipy sortedcontainers tabulate nbgitpuller torch \
+	torchvision torchaudio torchviz torchtext==0.17 lightning \
+	tensorboard --extra-index-url https://download.pytorch.org/whl/cpu
 
 # JupyText Config
 RUN jupytext-config set-default-viewer python
