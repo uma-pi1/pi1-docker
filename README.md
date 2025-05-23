@@ -28,22 +28,9 @@ and corresponding installation instructions
 [here](https://docs.docker.com/desktop/install/windows-install/).
 
 #### Troubleshooting WSL
-Docker in the WSL can use up too many resources. We therefore limit the RAM
-usage with the following commands.
 
-Create the file
-```
-C:\Users\<username>\.wslconfig
-```
-
-with the following content
-```
-[wsl2]
-memory=3GB
-```
-
-You can adapt the memory usage to your system. Furthermore, you can limit the
-amount of processors used by adding `processors=1`.
+Docker in the WSL can use up too many resources. We therefore recommend to adjust
+the resources allocated to WSL using the WSL Settings App (see [here](https://devblogs.microsoft.com/commandline/whats-new-in-the-windows-subsystem-for-linux-in-may-2024/#wsl-settings-gui-application-coming-soon)).
 
 #### Starting the Docker Engine
 
