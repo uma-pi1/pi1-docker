@@ -1,7 +1,7 @@
 # pi1-docker: The Environment For All Lectures at PI1
 
 In the following, we briefly introduce you to Docker. For specifics to
-[PI2](#4-pi2) , [ML/DL](#5-mldl), and [LSDM](#6-lsdm), click on the respective
+[PI2](#4-pi2) , [ML/DL](#5-mldl), and [LSDM](#6-large-scale-data-management-lsdm), click on the respective
 link.
 
 ## Table of contents
@@ -11,7 +11,7 @@ link.
 3. [Usage](#3-usage)
 4. [PI2](#4-pi2)
 5. [ML/DL](#5-mldl)
-<!-- 6. [LSDM](#6-lsdm) -->
+6. [LSDM](#6-large-scale-data-management-lsdm)
 
 ## 1. Installation
 
@@ -245,93 +245,25 @@ For the lectures "Machine Learning (ML)" and "Deep Learning (DL)", the Docker en
 - JupyterLab with Python kernel
 - Relevant Python packages including matplotlib, pandas, NumPy, PyTorch, and TensorBoard
 
-<!-- ## 6. LSDM 
-This is a docker environment for the exercises of the course "Large-Scale Data Management (LSDM)".  This environment contains:
+## 6. Large-Scale Data Management (LSDM)
+
+The `docker-compose.yaml` file defines several containers for the Large-Scale Data Management (LSDM) lecture:
+
 - MySQL database
 - phpMyAdmin
-- JupyterLab with Python, Java, and Scala kernels (each with Spark support) as well as Beam
+- JupyterLab with Python, Java, and Scala kernels (each with Apache Spark
+  support)
 - MongoDB
-- ~~Hadoop~~ (currently commented out)
+- Mongo-Express
 
-This environment is based on [this repository](https://github.com/big-data-europe/docker-hadoop).
+The following table summarizes the most important information:
 
-## 6.1 phpMyAdmin
-With a successful setup you should be able to access phpMyAdmin here:
+| Service           | Container Name        | Access                    | Credentials                   | Data Persistence               | Notes                                                                                 |
+|-------------------|------------------|---------------------------|-------------------------------|--------------------------------|---------------------------------------------------------------------------------------|
+| **JupyterLab**    | `pi1-main`       | `http://localhost:8889`   | password/token = `pi1`        | Host `./shared` → `/home/jovyan/shared` | Python, (Java) & Scala kernels with Spark support, Spark UIs on ports `4040`–`4049`   |
+| **MySQL**         | `mysqldb`        | TCP → `localhost:3306`    | user/secret, root/root        | Named volume `mysql-data`      | Default database: `db`| 
+| **phpMyAdmin**    | `phpmyadmin`     | `http://localhost:8081`   | (use MySQL creds)             | —                              | — |
+| **MongoDB**       | `mongodb`        | TCP → `localhost:27017`   | root/root                     | Named volume `mongo-data`      | Default database: `db`                                                               |
+| **Mongo-Express** | `mongo-express`  | `http://localhost:8082`   | basic auth: root/root         | —                              | — |
 
-[http://localhost:8081](http://localhost:8081)
-
-## 6.2 MySQL
-From your local machine you can connect to the database via `localhost:3308` or via `mysqldb:3306`.
-
-username: root
-
-password: root
-
-Note: The connection port differs as we use port forwarding to connect from the local machine (`localhost:3308`) directly to the container (`mysqldb:3306`). I.e., the database is hosted on port 3306 in the container but port 3308 in your local machine. This is done because port 3306 might already be in use on your machine.
-
-
-## 6.3. MongoDB
-You can connect to the database on `mongodb://root:root@mongodb:27017/`.
-
-## 6.4 PySpark Notebook
-You can access JupyterLab on
-
-[http://localhost:8889](http://localhost:8889)
-
-**If you see a prompt asking you for a token or password, type `pi1`.**
-
-Here you can run any Python/Java/Scala code you want. But most importantly you can use Spark and connect to the HDFS.
-
-For example, in Python:
-```python
-import pyspark
-from pyspark.sql import SparkSession
-
-spark = SparkSession.builder.master("local").appName("hdfs_test").getOrCreate()
-
-hello_world_rdd = spark.sparkContext.textFile("hdfs://namenode:9000/helloWorld/hello.txt")
-
-hello_world_rdd.collect()
-```
-### Accessing the DB from the PySpark Notebook
-You can access the database via the container name `mysqldb:3306` or via `your_ip_address:3306`.
-The connection via localhost does not work here, as the notebook is hosted in a separate container.
-
-## 6.5 Hadoop
-
-**N.B.:** Hadoop's dependencies are commented out in the `docker-compose.yml` file. Hence, you need to uncomment
-the respective lines in the file and reinitialize the containers before being able to use Hadoop as described below.
-
-You can copy files to the namenode via
-```
-docker cp <filename> namenode:<path on namenode>
-```
-
-You can access the namenode via
-```
-docker exec -it namenode /bin/bash
-```
-
-On the namenode you can create a new directory on the hdfs via
-```
-hadoop fs -mkdir <folder name>
-```
-
-You can put a local file onto the hdfs via
-```
-hadoop fs -put <file name> <path on hdfs>
-```
-
-You can run a jar file via 
-
-```
-hadoop jar <jar file>
-```
-
-
-### Hadoop UI
-You can access the Hadoop UI on
-
-[http://localhost:9870](http://localhost:9870) -->
-
-
+**Note:** A separate repository is available for Apache Hadoop: [docker-hadoop](https://github.com/simon-forb/docker-hadoop/).
