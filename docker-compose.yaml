@@ -16,3 +16,20 @@ services:
       - JUPYTER_RUNTIME_DIR=/tmp/jupyter_runtime/
       - RJK_CLASSPATH=/usr/local/spark/jars/*
 
+  mysql:
+    image: mysql:8.0
+    container_name: mysqldb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+    driver: local
