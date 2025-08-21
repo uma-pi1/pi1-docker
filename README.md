@@ -34,8 +34,9 @@ the resources allocated to WSL using the WSL Settings App (see [here](https://de
 
 #### Starting the Docker Engine
 
-On Windows you always need to start Docker first manually. Open Docker Desktop
-and click the little Docker icon in the bottom left corner to start the engine.
+On Windows you always need to start Docker before usage. Open Docker Desktop
+and click the Docker icon in the bottom left corner to start the engine. You
+can also configure Docker to start at system startup automatically.
 
 ### Docker Installation - Mac
 
@@ -46,16 +47,18 @@ and corresponding installation instructions
 ### Docker Installation - Linux
 On Linux you have multiple installation options.
 
-#### Installation using Apt
+#### Installation using apt
+
 You can install docker using apt (preferred in Debian/Ubuntu). Please follow the
 official instuctions given
 [here](https://docs.docker.com/engine/install/ubuntu/).
 
 #### Installation using convenience script
+
 Alternatively, Docker provides a useful convenience script to install the engine
 with the following commands.
 
-```
+```sh
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh
 ```
@@ -64,21 +67,23 @@ For more information see
 [here](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script).
 
 #### Installation using Snap
+
 Alternatively, you can install docker using a single command on Ubuntu using
 Snap. Note: the version provided by snap can be an older one. We recommend using
 the convenience script instead.
 
-```
+```sh
 sudo snap install docker
 ```
 
 ## 2. Setup
 
 ### Clone This Repository
+
 Clone this repository and go into the root directory of the repository by typing
 the following commands in a terminal:
 
-```
+```sh
 git clone https://github.com/uma-pi1/pi1-docker
 cd pi1-docker
 ```
@@ -87,74 +92,89 @@ Alternatively, you can click on the "Code" button on the top right of this page
 and click "Download ZIP". Then you need to decompress the ZIP file into a new
 folder.
 
-### Build/Start Docker Containers
+### Build Docker Containers
 
 With an installed Docker environment and a started engine you can now run the
 Docker containers.
 
-**Note: The first time you are running the commands below will take some time
-depending on your notebook and internet connection.** **So feel free to grab
-some coffee.**
+**Note:** The first time you are running the commands below will take some time
+depending on your notebook and internet connection. So feel free to grab
+some coffee. It will only take that long the first time you run this command. 
+All following start-ups should be quick.
 
-**It will only take that long the first time you run this command. All following
-start-ups should be quick.**
-
-This will run all provided containers:
-```
-docker compose up -d
-```
-
-You usually want to use the pi1\_main container only. Start this using
-```
-docker compose up -d pi1-main
-```
-
-**Note for Windows users: it might be that you do not have write access in the
-`shared/` folder.** In that case, first run `prepare_host.sh`. For this, open a
-linux shell, turn the script into an executable, then run it.
+This will build all containers:
 
 ```sh
-chmod +x prepare_host.sh
-./prepare_host.sh
+docker compose up --build --no-start
 ```
-
-Then run `docker compose up --build`. 
 
 ### Handling Repository Updates 
 
-If the pi1-docker repository was updated during the term, run
-```
-git pull
-docker compose up --build -d
-```
-in the pi1-docker folder.
+If the `pi1-docker` repository is updated during the term, run
 
+```sh
+git pull
+docker compose up --build --no-start
+```
+
+in the `pi1-docker` folder.
 
 ## 3. Usage
 
-Use the Docker Desktop GUI or run the following command in the root folder of
-the repository to start the main container:
+### Start-up
 
-```
-docker compose up -d pi1-main
+For the PI2, the ML or the DL lecture, you usually want to use only the `pi1_main` container. 
+You can start only this container (in the background) using:
+
+```sh
+docker compose up -d pi1_main
 ```
 
-The container will run until you stop it using the GUI or
+Alternatively start all containers (including mySQL, MongoDB etc.) in the background using:
+
+```sh
+docker compose up -d
 ```
+
+#### Windows File Permission Fix
+
+**Note for Windows users: it might be that you do not have write access in the
+`shared` folder.** In that case, first run the provided script `prepare_host.sh`. 
+For this, open a linux shell, turn the script into an executable, then run it:
+
+```sh
+chmod +x prepare_host.sh  # makes the script executable
+./prepare_host.sh  # runs the script
+```
+
+Then run:
+
+ ```sh
+ docker compose up --build -d
+ ```
+
+### Shutdown
+
+The container will run until you stop it by executing:
+
+```sh
 docker compose down
 ```
 
-<!-- Notice that Docker is running in the terminal you started it from, as long -->
-<!-- as the process it is running hasn't finished working yet. In case of the Jupyter -->
-<!-- notebook server, the answer to when it will *finish* executing is: never, unless -->
-<!-- you shut it down. To attach to a container, you thus have to open a second -->
-<!-- terminal to not interrupt the processes running in the first. -->
+You can remove the volumes created by Docker (e.g., for mySQL and MongoDB) by
+using
+
+```sh
+docker compose down -v
+```
+
+instead. You will **lose all files** in those volumes.
 
 ### Transfer Files Between Host and Container
 
-All files placed in the folder `./shared` located in the root directory of this
+All files placed in the `shared` folder located in the root directory of this
 repository on your host machine will directly appear in your container in the
-folder `shared`. And vice versa, of course.
+`shared` folder and vice versa.
 
 ### Using JupyterLab
 
@@ -174,7 +194,8 @@ plain Python files as a notebook. You will notice that upon saving your edits, a
 notebook file (with `ipynb` file extension) will be created. Changes in either
 file (`py` or `ipynb`) will be synchronized to the other one.
 
-**Note:** If Python files are _not_ opened as a notebook directly, right-click the file, click "Open With", then select "Notebook".
+**Note:** If Python files are _not_ opened as a notebook directly, right-click 
+the file, click "Open With", then select "Notebook".
 
 ### Run Programs in A Container
 
@@ -182,45 +203,49 @@ You can run programs using the terminal in JupyterLab. But you can also do it
 non-interactively or interactively from the shell.
 
 #### Non-Interactively
-1. **List Running Containers**: If you don't know the exact container name, list
-   the running containers to get the container ID or name.
 
-    ```sh
-    docker ps
-    ```
+**List Running Containers**: List the running containers to get the container 
+ID or name:
 
-2. **Execute a Command**: Run your command via the container
+```sh
+docker ps
+```
 
-    ```
-    sh docker exec -it <container_name> <command>
-    ```
+ **Execute a Command**: Run your command in a container:
 
-    For example, to run a Python script inside `pi1-main`:
-    ```sh
-    docker exec -it pi1-main python3 shared/myprogram.py
-    ```
+```sh 
+docker exec -it <container_name> <command>
+```
+
+For example, to run a Python script inside `pi1-main`:
+
+```sh
+docker exec -it pi1-main python3 shared/myprogram.py
+```
 
 #### Interactively
 
 Attach to the container's interactive shell using the `docker exec` command with
 bash.
 
-1. **Attach to the Shell**: Use the `docker exec` command to attach to the
-   container's shell.
+**Open a shell inside a container**: Use the `docker exec` command to open a
+container's shell.
 
-    ```sh
-    docker exec -it <container_name> /bin/bash
-    ```
+ ```sh
+ docker exec -it <container_name> /bin/bash
+ ```
 
-2. **Execute programs**: Once you are inside the container's shell, you can
-   execute programs as you would in a regular terminal.
+**Execute programs**: Once you are inside the container's shell, you can
+execute programs as you would in a regular terminal.
 
-    For example, to compile and run a C program:
-    ```sh
-    gcc -o myprogram myprogram.c
-    ./myprogram
-    ```
-3. Close the shell again: Ctrl+D.
+ For example, to compile and run a `C` program:
+
+ ```sh
+ gcc -o myprogram myprogram.c
+ ./myprogram
+ ```
+
+Close the shell again: `Ctrl + D`
 
 ### Misc
 
@@ -233,23 +258,24 @@ more information see
 ## 4. PI2
 
 For the lecture Praktische Informatik II (PI2), the Docker environment contains:
-- clang
-- nasm
-- Java
-- Python
-- JupyterLab with Java and C kernels
+- `clang`
+- `nasm`
+- `Java`
+- `Python`
+- JupyterLab with `Java` and `C` kernels
 
 ## 5. ML/DL
 
-For the lectures "Machine Learning (ML)" and "Deep Learning (DL)", the Docker environement contains:
+For the lectures "Machine Learning (ML)" and "Deep Learning (DL)", the Docker environment contains:
+
 - JupyterLab with Python kernel
-- Relevant Python packages including matplotlib, pandas, NumPy, PyTorch, and TensorBoard
+- Relevant Python packages including `matplotlib`, `pandas`, `NumPy`, `PyTorch`, and `TensorBoard`
 
 ## 6. Large-Scale Data Management (LSDM)
 
 The `docker-compose.yaml` file defines several containers for the Large-Scale Data Management (LSDM) lecture:
 
-- MySQL database
+- MySQL
 - phpMyAdmin
 - JupyterLab with Python, Java, and Scala kernels (each with Apache Spark
   support)
