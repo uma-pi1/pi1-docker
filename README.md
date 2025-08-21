@@ -187,12 +187,15 @@ different languages.
 #### JupyText
 
 In our lectures, we are making use of
-[Jupytext](https://jupytext.readthedocs.io/en/latest/index.html), a tool to
+[JupyText](https://jupytext.readthedocs.io/en/latest/index.html), a tool to
 synchronize plain Python files with Jupyter notebooks. In this Docker container,
-Jupytext is already installed. This means that you are able to open and edit
+JupyText is already installed. This means that you are able to open and edit
 plain Python files as a notebook. You will notice that upon saving your edits, a
-notebook file (with `ipynb` file extension) will be created. Changes in either
-file (`py` or `ipynb`) will be synchronized to the other one.
+notebook file (with `ipynb` file extension) will be created. 
+
+Changes in either file (`py` or `ipynb`) will be synchronized to its counterpart. 
+This means that you can edit any JuypText file *simultaneously* in your IDE and 
+in JupyterLab.
 
 **Note:** If Python files are _not_ opened as a notebook directly, right-click 
 the file, click "Open With", then select "Notebook".
