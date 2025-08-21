@@ -253,7 +253,8 @@ The default user name in JupyterLab and the pi1-main notebook is `jovyan`. For
 more information see
 [here](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/faq.html#who-is-jovyan).
 
-*""Jovyan is often a special term used to describe members of the Jupyter community. It is also used as the user ID in the Jupyter Docker stacks or referenced in conversations."*
+> Jovyan is often a special term used to describe members of the Jupyter community. 
+> It is also used as the user ID in the Jupyter Docker stacks or referenced in conversations.
 
 ## 4. PI2
 
