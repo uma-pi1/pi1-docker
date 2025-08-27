@@ -10,14 +10,10 @@ USER root
 RUN apt-get update
 
 # General
-RUN apt-get -y install vim git openjdk-17-jdk gcc
-# PI2
-RUN apt-get -y install clang nasm
-# LSDM
-RUN apt-get -y install netcat-traditional
-# ML/DL
-RUN apt -y install libcairo2-dev pkg-config libgirepository1.0-dev 
-RUN apt -y install libgirepository-2.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-4.0
+RUN apt-get -qy install vim git openjdk-17-jdk gcc clang nasm \
+	netcat-traditional libcairo2-dev pkg-config libgirepository1.0-dev \
+	libgirepository-2.0-dev gcc libcairo2-dev pkg-config python3-dev \
+	gir1.2-gtk-4.0 texlive-extra-utils
 
 #make sure folder permissions work under mac
 RUN chown -R jovyan /home/jovyan
