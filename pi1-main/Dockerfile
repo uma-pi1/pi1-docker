@@ -50,9 +50,9 @@ RUN pip3 install --no-cache-dir ipywidgets ipympl 'apache-beam[gcp]' \
 	mysql-connector-python pyarrow pandas pymongo jupytext nodejs \
 	PyGObject pycairo pkgconfig psutil black cairocffi graphviz \
 	importmagic matplotlib numpy pandas \
-	pyparsing python-crfsuite python-mnist mnist1d pystan scikit-learn \
+	pyparsing python-crfsuite python-mnist mnist1d scikit-learn \
 	scikit-optimize scipy sortedcontainers tabulate nbgitpuller torch \
-	torchvision torchaudio torchviz torchtext==0.17 lightning \
+	torchvision torchaudio torchviz torchtext lightning \
 	tensorboard --extra-index-url https://download.pytorch.org/whl/cpu
 
 # JupyText Config
