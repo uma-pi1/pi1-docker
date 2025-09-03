@@ -27,8 +27,8 @@ services:
       MYSQL_PASSWORD: secret
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 5s
-      retries: 20
+      interval: 3s
+      retries: 10
     ports:
       - "3306:3306"
     volumes:
