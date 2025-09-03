@@ -296,4 +296,4 @@ The following table summarizes the most important information:
 | **MongoDB**       | `mongodb`        | TCP → `localhost:27017`   | root/root                     | Named volume `mongo-data`      | Default database: `db`                                                               |
 | **Mongo-Express** | `mongo-express`  | `http://localhost:8082`   | basic auth: root/root         | —                              | — |
 
-**Note:** A separate repository is available for Apache Hadoop: [docker-hadoop](https://github.com/simon-forb/docker-hadoop/).
+**Note:** A separate repository is available for Apache Hadoop: [docker-hadoop](https://github.com/uma-pi1/docker-hadoop).
