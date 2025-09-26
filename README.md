@@ -198,7 +198,7 @@ This means that you can edit any JuypText file *simultaneously* in your IDE and
 in JupyterLab.
 
 **Note:** If Python files are _not_ opened as a notebook directly, right-click 
-the file, click "Open With", then select "Notebook".
+the file, click "Open With", then select "Jupytext Notebook".
 
 ### Run Programs in A Container
 
